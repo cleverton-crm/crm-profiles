@@ -1,9 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { ProfileModule } from './profile.module';
-
-import { Logger } from 'mongodb';
 import { TcpOptions, Transport } from '@nestjs/microservices';
 import { cyan } from 'cli-color';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
   const logger = new Logger('ProfileModule');
@@ -15,7 +14,7 @@ async function bootstrap() {
       port: PORT,
     },
   } as TcpOptions);
-
+  logger.log(cyan(`Profile microservice started on TCP port: ${PORT}`));
   await app.listen();
 }
 bootstrap();
