@@ -1,12 +1,10 @@
 version: '3.9'
 services:
   user:
-    build: ./
+    build: .
     container_name: core_profile
     restart: always
     hostname: profile
-    env_file:
-      - ./.env
     ports:
      - "4002:4002"
     networks:
@@ -17,4 +15,5 @@ services:
       - shard1svr3
 networks:
   backend:
+    name: microserver_backend
     driver: bridge
