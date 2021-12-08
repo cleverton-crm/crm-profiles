@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  user:
+    build: ./profile
+    container_name: core_profile
+    restart: always
+    hostname: profile
+    env_file:
+      - ./.env
+    ports:
+     - "4001:4001"
+    networks:
+      - backend
+    links:
+      - shard1svr1
+      - shard1svr2
+      - shard1svr3
+networks:
+  backend:
+    driver: bridge
