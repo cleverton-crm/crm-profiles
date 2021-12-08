@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   user:
-    build: ./profile
+    build: ./
     container_name: core_profile
     restart: always
     hostname: profile
