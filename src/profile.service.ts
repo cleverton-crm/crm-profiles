@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { Core } from 'core-types/global';
 
 @Injectable()
 export class ProfileService {
-  getHello(): string {
-    return 'Hello World!';
+  getHello(): Promise<Core.Response.Success> {
+    return;
   }
 }

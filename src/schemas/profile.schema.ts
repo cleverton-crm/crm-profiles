@@ -1,8 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, model, PaginateModel } from 'mongoose';
+import { Document, model } from 'mongoose';
+
+export type ProfileDocument = Profile & Document;
 
 @Schema({
-  collation: { locale: 'en_US', strength: 1, caseLevel: true },
+  collation: { locale: 'ru_RU', strength: 1, caseLevel: true },
   timestamps: true,
 })
 export class Profile extends Document {
@@ -11,8 +13,3 @@ export class Profile extends Document {
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);
-export type ProfileModel<T extends Document> = PaginateModel<T>;
-export const ProfileModel: ProfileModel<Profile> = model<Profile>(
-  'Profile',
-  ProfileSchema,
-) as ProfileModel<Profile>;

@@ -5,6 +5,7 @@ export const ProfileProvider = {
   useFactory: () => {
     ProfileSchema.set('toJSON', { virtuals: true });
     ProfileSchema.set('toObject', { virtuals: true });
+
     return ProfileSchema;
   },
 };
