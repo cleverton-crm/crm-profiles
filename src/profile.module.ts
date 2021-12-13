@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ProfileProvider } from './schemas/profile.provider';
 import { JwtConfigService } from './providers/jwt.servises';
 import { MongoConfigService } from './providers/mongo.service';
+import { UserProvider } from './schemas/user.provider';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { MongoConfigService } from './providers/mongo.service';
     MongooseModule.forRootAsync({
       useClass: MongoConfigService,
     }),
-    MongooseModule.forFeatureAsync([ProfileProvider])
+    MongooseModule.forFeatureAsync([ProfileProvider, UserProvider]),
   ],
   controllers: [ProfileController],
   providers: [ProfileService],

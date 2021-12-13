@@ -1,5 +1,4 @@
 export function getBoolean(val) {
-  console.log(val);
   return val; // !!JSON.parse(String(val).toLowerCase());
 }
 

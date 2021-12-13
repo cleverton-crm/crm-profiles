@@ -1582,6 +1582,11 @@ bser@2.1.1:
   dependencies:
     node-int64 "^0.4.0"
 
+bson@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/bson/-/bson-3.0.2.tgz#2467a76507a98c63ce34072f9965f4024e753dfc"
+  integrity sha512-HrDzr7y/ZkgyEVancPVDmfbaD8j81GzSNr6h6yUd/yZfavkrlrqI8aUZMCHrhyMoCW2/I+vEJDat1xDWRwVR6A==
+
 bson@^4.2.2, bson@^4.5.4, bson@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/bson/-/bson-4.6.0.tgz#15c3b39ba3940c3d915a0c44d51459f4b4fbf1b2"
@@ -1892,7 +1897,7 @@ cookiejar@^2.1.2:
 
 "core-types@https://github.com/cleverdeus/core-types.git":
   version "1.0.0"
-  resolved "https://github.com/cleverdeus/core-types.git#4336faf8ee9ccc5b56aa568d61125f0c8f2453ea"
+  resolved "https://github.com/cleverdeus/core-types.git#9b84c7c4e924faa660c98bb6caa3148392cf3608"
   dependencies:
     mongodb "^4.2.1"
     mongoose "^6.1.0"
@@ -1998,6 +2003,13 @@ debug@4, debug@4.x, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1:
   integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
   dependencies:
     ms "2.1.2"
+
+debug@^3.1.0:
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.7.tgz#72580b7e9145fb39b6676f9c5e5fb100b934179a"
+  integrity sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==
+  dependencies:
+    ms "^2.1.1"
 
 decimal.js@^10.2.1:
   version "10.3.1"
@@ -4157,6 +4169,15 @@ mongoose-paginate-v2@^1.4.2:
   resolved "https://registry.yarnpkg.com/mongoose-paginate-v2/-/mongoose-paginate-v2-1.4.2.tgz#482cea73f4a0bd49131ef9004694c73cae93b73e"
   integrity sha512-b7FBe7fasJazhlTIfMSPyIST04yvobASXKmUt3ducnvYThulCyGSPhPcSYOzXcPmqBR4tpMnafIJxv+8GjM+UA==
 
+mongoose-uuid2@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/mongoose-uuid2/-/mongoose-uuid2-2.3.0.tgz#c486c3d9952d2e719d49d0368644b7271efad8d5"
+  integrity sha512-ZLE6b4J3qNMBYUbEbpa00TSTVTBG55vncmQG20qcMnlL/gxJYyfMtVpGbX7epnPOHWj2CMkxqKDpngT9dLZRbw==
+  dependencies:
+    bson "^3.0.2"
+    debug "^3.1.0"
+    uuid-parse "^1.0.0"
+
 mongoose@^6.0.14:
   version "6.0.14"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.0.14.tgz#8f4d45318bb5de08814a8a9b040dd53521246608"
@@ -5543,6 +5564,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+
+uuid-parse@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/uuid-parse/-/uuid-parse-1.1.0.tgz#7061c5a1384ae0e1f943c538094597e1b5f3a65b"
+  integrity sha512-OdmXxA8rDsQ7YpNVbKSJkNzTw2I+S5WsbMDnCtIWSQaosNAcWtFuI/YK1TjzUI6nbkgiqEyh8gWngfcv8Asd9A==
 
 uuid@8.3.2, uuid@^8.3.2:
   version "8.3.2"
