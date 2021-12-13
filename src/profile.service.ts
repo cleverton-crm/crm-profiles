@@ -17,7 +17,7 @@ export class ProfileService {
     console.log(test);
     return {
       statusCode: HttpStatus.OK,
-      message: test,
+      message: 'TEST',
     };
   }
 }
