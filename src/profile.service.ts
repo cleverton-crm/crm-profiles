@@ -1,6 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class ProfileService {
@@ -9,15 +10,33 @@ export class ProfileService {
   constructor(@InjectConnection() private connection: Connection) {
     this.profileModel = this.connection.model('Profile');
     this.userModel = this.connection.model('User');
+    this.profileModel
+      .create({ owner: uuidv4(), type: 'doctor' })
+      .then((docs) => console.log(docs));
   }
 
-  async createProfile(data: Profile.CreateData) {
-    const test = await this.userModel.find();
+  /**
+   * Создаем профиль простого пользователя
+   * @param data
+   */
+  async createProfileEmpty(data: Profiles.Params.EmptyData) {
+    const profile = new this.profileModel({
+      owner: data.owner,
+      email: data.email,
+    });
+    console.log(profile);
+    return profile;
+  }
 
-    console.log(test);
-    return {
-      statusCode: HttpStatus.OK,
-      message: 'TEST',
-    };
+  async createProfilePersona(persona: Profiles.Params.CreatePersona) {
+    const profile = new this.profileModel({ ...persona, type: 'persona' });
+    console.log(profile);
+    return profile;
+  }
+
+  async createProfileDoctor(doctor: Profiles.Params.CreatePersona) {
+    const profile = new this.profileModel({ ...doctor, type: 'doctor' });
+    console.log(profile);
+    return profile;
   }
 }

@@ -6,9 +6,24 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
-  @MessagePattern('profile:create')
-  async createProfile(@Payload() data: Profile.CreateData): Promise<any> {
-    console.log(data);
-    return await this.profileService.createProfile(data);
+  @MessagePattern('profile:empty')
+  async createProfileEmpty(
+    @Payload() data: Profiles.Params.EmptyData,
+  ): Promise<any> {
+    return await this.profileService.createProfileEmpty(data);
+  }
+
+  @MessagePattern('profile:persona')
+  async createPersona(
+    @Payload() persona: Profiles.Params.CreatePersona,
+  ): Promise<any> {
+    return await this.profileService.createProfilePersona(persona);
+  }
+
+  @MessagePattern('profile:doctor')
+  async createDoctor(
+    @Payload() doctor: Profiles.Params.CreatePersona,
+  ): Promise<any> {
+    return await this.profileService.createProfileDoctor(doctor);
   }
 }
