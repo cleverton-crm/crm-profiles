@@ -36,6 +36,7 @@ declare namespace Profiles {
    */
   export interface Persona {
     owner: string;
+    title: string;
     firstName: string | null;
     lastName: string | null;
     maidenName?: string | null;
@@ -58,6 +59,7 @@ declare namespace Profiles {
     experience?: Map<string, any>;
     socials?: Map<string, any>;
     customer?: string;
+    orders?: Map<string, any>;
     worksExperience?: Map<string, any>;
     worksTitle?: string;
     calendar?: Map<string, any>;
@@ -73,7 +75,7 @@ declare namespace Profiles {
     type: string;
     email: string | null;
     owner: string;
-
+    title: string;
     nickName: string;
     firstName: string | null;
     lastName: string | null;
@@ -87,17 +89,13 @@ declare namespace Profiles {
     language: string | null;
     speakLanguage: Array<string>;
     customer: string;
-
     skills?: Map<string, any>;
     works?: Map<string, any>;
     certificates?: Map<string, any>;
     experience?: Map<string, any>;
-
     calendar: Map<string, any>;
     cards: string;
-
     disorders: Map<string, any>;
-
     socials: Map<string, any>;
     specialty: Map<string, any>;
     worksExperience: Map<string, any>;
@@ -114,5 +112,6 @@ declare namespace Profiles {
     }
 
     export interface CreatePersona extends Profiles.Persona {}
+    export interface UpdatePersona extends Profiles.Persona {}
   }
 }

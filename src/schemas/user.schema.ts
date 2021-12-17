@@ -3,7 +3,7 @@ import { Document, model, PaginateModel } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
 @Schema({
-  collation: { locale: 'en_US', strength: 1, caseLevel: true },
+  collation: { locale: 'ru', strength: 1, caseLevel: true },
   timestamps: true,
 })
 export class Users extends Document {
