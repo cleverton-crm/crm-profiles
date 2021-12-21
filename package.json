@@ -1,6 +1,6 @@
 {
   "name": "cleverdeus-profile",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "",
   "author": "",
   "private": true,
@@ -38,6 +38,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "cli-color": "^2.0.1",
     "core-types": "https://github.com/cleverdeus/core-types.git",
+    "crm-core": "https://github.com/cleverton-crm/crm-core.git",
     "cross-env": "^7.0.3",
     "env-url": "^0.0.3",
     "husky": "^7.0.4",
