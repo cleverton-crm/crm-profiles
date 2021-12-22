@@ -2,8 +2,7 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 
-import { Core } from 'micro-core';
-
+import { Core } from 'crm-core';
 
 @Injectable()
 export class ProfileService {
