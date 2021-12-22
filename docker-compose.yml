@@ -6,7 +6,7 @@ services:
     restart: always
     hostname: profile
     ports:
-     - "4002:4002"
+     - "5012:5012"
     networks:
       - backend
     links:

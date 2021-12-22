@@ -1,9 +1,9 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
-import { v4 as uuidv4 } from 'uuid';
+
 import { Core } from 'micro-core';
-import { log } from 'util';
+
 
 @Injectable()
 export class ProfileService {

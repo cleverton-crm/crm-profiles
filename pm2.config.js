@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'crm-profile',
+      name: 'crm-profiles',
       script: './dist/main.js',
       watch: false,
       wait_ready: true,
