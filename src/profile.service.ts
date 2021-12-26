@@ -22,7 +22,7 @@ export class ProfileService {
       owner: data.owner,
       email: data.email,
     });
-
+    await profile.save();
     return Core.ResponseDataAsync('Create profile', profile);
   }
 
@@ -31,8 +31,8 @@ export class ProfileService {
    * @param persona
    */
   async createProfilePersona(persona: Profiles.Params.CreatePersona) {
-    const profile = new this.profileModel({ ...persona, type: 'persona' });
-
+    const profile = new this.profileModel({ ...persona, type: 'user' });
+    await profile.save();
     return Core.ResponseDataAsync('Create persona', profile);
   }
 
