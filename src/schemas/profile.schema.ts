@@ -1,26 +1,54 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
+import { Core } from 'crm-core';
 
 export type ProfileDocument = Profile & Document;
 
-@Schema({
-  collation: { locale: 'ru', strength: 1, caseLevel: true },
-  timestamps: true,
-  _id: false,
-})
-export class Profile extends Document implements Profiles.PersonaSchema {
+/** Nested Schemas ProfilesPassport */
+@Schema({ timestamps: false, _id: false, versionKey: false })
+export class ProfilesPassport {
+  @Prop({ type: Date, default: null })
+  dateOfIssue: Date;
+  @Prop({ type: String, default: null })
+  number: string;
+  @Prop({ type: String, default: null })
+  series: string;
+}
+/** Nested Schemas ProfilesDriverLicense */
+@Schema({ timestamps: false, _id: false, versionKey: false })
+export class ProfilesDriverLicense {
+  @Prop({ type: Date, default: null })
+  dateOfIssue: Date;
+  @Prop({ type: Date, default: null })
+  endDate: Date;
+  @Prop({ type: String, default: null })
+  number: string;
+}
+
+/** Nested Schemas PersonalDocument */
+@Schema({ timestamps: false, _id: false, versionKey: false })
+export class PersonalDocument {
+  @Prop({ type: () => ProfilesDriverLicense, default: {} })
+  driver_license: ProfilesDriverLicense;
+  @Prop({ type: () => ProfilesPassport, default: {} })
+  passport: ProfilesPassport;
+}
+
+/** Main Schemas Profiles */
+@Schema({ timestamps: true, _id: false })
+export class Profile extends Document implements Core.Profiles.Schema {
   @Prop({ type: uuidv4, default: uuidv4() })
   _id: string;
 
   @Prop({ type: uuidv4, required: true, unique: true, index: true })
   owner: string;
 
-  @Prop({ type: String, default: 'persona' })
+  @Prop({ type: String, default: 'member' })
   type: string;
 
   @Prop({ type: String, default: 'profile' })
-  object: 'profile';
+  object: string;
 
   @Prop({ type: String, default: 'active' })
   status: string;
@@ -73,35 +101,17 @@ export class Profile extends Document implements Profiles.PersonaSchema {
   @Prop({ type: String, default: null })
   customer: string;
 
-  /** Doctor Types */
-  @Prop({ type: Map })
-  skills: Map<string, any>;
+  @Prop({ type: () => PersonalDocument, default: {} })
+  passport: PersonalDocument;
 
-  @Prop({ type: Map })
-  worksExperience: Map<string, any>;
+  @Prop({ type: String, default: null })
+  phoneNumber: string;
 
-  @Prop({ type: String })
-  worksTitle: string;
+  @Prop({ type: Date, default: null })
+  startDate: Date;
 
-  @Prop({ type: Map })
-  certificates: Map<string, any>;
-
-  @Prop({ type: Map })
-  experience: Map<string, any>;
-
-  @Prop({ type: Map })
-  calendar: Map<string, any>;
-
-  @Prop({ type: Map })
-  specialty: Map<string, any>;
-
-  @Prop({ type: Map })
-  disorders: Map<string, any>;
-  /**
-   * Visitor Profile
-   */
-  @Prop({ type: uuidv4 })
-  cards: string;
+  @Prop({ type: Map, default: {} })
+  requisites: Map<string, any>;
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);

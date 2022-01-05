@@ -42,11 +42,30 @@ export class ProfileService {
     return Core.ResponseDataAsync('Create doctor', profile);
   }
 
-  async createUpdateDoctor(doctor: Profiles.Params.CreatePersona) {
-    const profile = new this.profileModel({ ...doctor, type: 'doctor' });
-    console.log(profile);
-    return profile;
+  async getMeData(data: { id: string }) {
+    let result;
+    const profile = await this.profileModel.findOne({ _id: data.id });
+    try {
+      result = {
+        statusCode: HttpStatus.OK,
+        message: 'Congratulations! You has been refresh token',
+        data: profile,
+      };
+    } catch (e) {
+      result = {
+        statusCode: e.status,
+        message: e.message,
+        errors: e.error,
+      };
+    }
+
+    return Core.ResponseDataAsync('My profile', profile);
   }
 
   async uploadAvatar(file: string) {}
+
+  async getProfile(persona: { owner: string }) {
+    const profile = await this.profileModel.findOne({ owner: persona.owner });
+    return profile;
+  }
 }
