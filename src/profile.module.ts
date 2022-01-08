@@ -8,21 +8,24 @@ import { ProfileProvider } from './schemas/profile.provider';
 import { JwtConfigService } from './providers/jwt.servises';
 import { MongoConfigService } from './providers/mongo.service';
 import { UserProvider } from './schemas/user.provider';
+import { ConfigService } from './config/config.service';
 
 @Module({
   imports: [
+    ConfigService,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
     JwtModule.registerAsync({
       useClass: JwtConfigService,
     }),
+
     MongooseModule.forRootAsync({
       useClass: MongoConfigService,
     }),
     MongooseModule.forFeatureAsync([ProfileProvider, UserProvider]),
   ],
   controllers: [ProfileController],
-  providers: [ProfileService],
+  providers: [ProfileService, ConfigService],
 })
 export class ProfileModule {}

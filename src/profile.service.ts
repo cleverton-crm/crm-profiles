@@ -1,29 +1,17 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
-
 import { Core } from 'crm-core';
+import { Profile } from './schemas/profile.schema';
 
 @Injectable()
 export class ProfileService {
   private readonly profileModel;
   private readonly userModel;
-  constructor(@InjectConnection() private connection: Connection) {
+
+  constructor(@InjectConnection() private readonly connection: Connection) {
     this.profileModel = this.connection.model('Profile');
     this.userModel = this.connection.model('User');
-  }
-
-  /**
-   * Создаем профиль простого пользователя
-   * @param data
-   */
-  async createProfileEmpty(data: Profiles.Params.EmptyData) {
-    const profile = new this.profileModel({
-      owner: data.owner,
-      email: data.email,
-    });
-    await profile.save();
-    return Core.ResponseDataAsync('Create profile', profile);
   }
 
   /**
@@ -36,12 +24,10 @@ export class ProfileService {
     return Core.ResponseDataAsync('Create persona', profile);
   }
 
-  async createProfileDoctor(doctor: Profiles.Params.CreatePersona) {
-    const profile = new this.profileModel({ ...doctor, type: 'doctor' });
-    console.log(profile);
-    return Core.ResponseDataAsync('Create doctor', profile);
-  }
-
+  /**
+   * Персональные данные пользователя (Профиль)
+   * @param data
+   */
   async getMeData(data: { id: string }) {
     let result;
     const profile = await this.profileModel.findOne({ _id: data.id });
@@ -62,10 +48,34 @@ export class ProfileService {
     return Core.ResponseDataAsync('My profile', profile);
   }
 
-  async uploadAvatar(file: string) {}
-
   async getProfile(persona: { owner: string }) {
     const profile = await this.profileModel.findOne({ owner: persona.owner });
     return profile;
+  }
+
+  async createProfile(data: Core.Profiles.Update) {
+    console.log(data);
+    const profile = await this.profileModel
+      .findOneAndUpdate({ _id: data.id }, data, { new: true })
+      .exec();
+    console.log('Profile ', profile);
+    return Core.ResponseDataAsync('Добавлены данные', profile, 200);
+  }
+
+  async updateMeData(data: Core.Profiles.Update) {
+    let profile = {};
+    try {
+      profile = await this.profileModel
+        .findOneAndUpdate({ _id: data.id }, data, { new: true })
+        .exec();
+    } catch (e) {
+      Core.ResponseError(
+        'Произошла ошибка. Обратитесь к администратору',
+        e.status || 400,
+        e.message,
+      );
+    }
+
+    return Core.ResponseDataAsync('Добавлены данные', profile, 200);
   }
 }

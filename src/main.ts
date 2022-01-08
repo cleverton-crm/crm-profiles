@@ -9,6 +9,7 @@ async function bootstrap() {
   const logger = new Logger('ProfileModule');
 
   const config = new ConfigService();
+
   const app = await NestFactory.createMicroservice(ProfileModule, {
     transport: Transport.TCP,
     options: {

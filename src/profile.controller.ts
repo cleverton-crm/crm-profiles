@@ -1,27 +1,36 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import { Core } from 'crm-core';
 
 @Controller()
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
+  /**
+   * Создаем
+   * @param profileData
+   * @param req
+   */
   @MessagePattern('profile:new')
-  async createProfileEmpty(
-    @Payload() data: Profiles.Params.EmptyData,
+  async createProfile(
+    @Payload() profileData: Core.Profiles.Update,
   ): Promise<any> {
-    return await this.profileService.createProfileEmpty(data);
+    return await this.profileService.createProfile(profileData);
   }
 
   @MessagePattern('profile:get:id')
   async createPersona(@Payload() persona: { owner: string }): Promise<any> {
-    console.log(persona);
     return await this.profileService.getProfile(persona);
   }
 
   @MessagePattern('profile:me')
   async findMe(@Payload() data: { id: string }): Promise<any> {
-    console.log('ProControler', data);
     return await this.profileService.getMeData(data);
+  }
+
+  @MessagePattern('profile:update')
+  async updateMe(@Payload() data: { id: string }): Promise<any> {
+    return await this.profileService.updateMeData(data);
   }
 }
