@@ -2,7 +2,7 @@ import {
   MongooseModuleOptions,
   MongooseOptionsFactory,
 } from '@nestjs/mongoose';
-import { getBoolean } from '../helpers/global';
+import { getBoolean } from '../../helpers/global';
 
 export class MongoConfigService implements MongooseOptionsFactory {
   createMongooseOptions(): MongooseModuleOptions {

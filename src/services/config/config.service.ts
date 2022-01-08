@@ -1,4 +1,4 @@
-import { getBoolean } from '../helpers/global';
+import { getBoolean } from '../../helpers/global';
 
 export class ConfigService {
   private readonly config: { [key: string]: any } = null;

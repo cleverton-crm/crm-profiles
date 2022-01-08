@@ -1,8 +1,8 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 import { Core } from 'crm-core';
-import { Profile } from './schemas/profile.schema';
+import { Profile } from '../schemas';
 
 @Injectable()
 export class ProfileService {
@@ -49,8 +49,21 @@ export class ProfileService {
   }
 
   async getProfile(persona: { owner: string }) {
-    const profile = await this.profileModel.findOne({ owner: persona.owner });
-    return profile;
+    let profile = {};
+    try {
+      profile = await this.profileModel.findOne({ owner: persona.owner });
+    } catch (e) {
+      Core.ResponseError(
+        'Произошла ошибка. Обратитесь к администратору',
+        e.status || 400,
+        e.message,
+      );
+    }
+    return Core.ResponseDataAsync(
+      'Получены профиль пользователя',
+      profile,
+      200,
+    );
   }
 
   async createProfile(data: Core.Profiles.Update) {
@@ -59,7 +72,11 @@ export class ProfileService {
       .findOneAndUpdate({ _id: data.id }, data, { new: true })
       .exec();
     console.log('Profile ', profile);
-    return Core.ResponseDataAsync('Добавлены данные', profile, 200);
+    return Core.ResponseDataAsync(
+      'Добавлены данные пользователя',
+      profile,
+      200,
+    );
   }
 
   async updateMeData(data: Core.Profiles.Update) {
@@ -77,5 +94,49 @@ export class ProfileService {
     }
 
     return Core.ResponseDataAsync('Добавлены данные', profile, 200);
+  }
+
+  async list() {
+    let profiles = [];
+    let result;
+    try {
+      profiles = await this.profileModel.find({ status: 'active' });
+
+      if (profiles.length === 0) {
+        throw new NotFoundException('Не найдено не одной записи');
+      }
+      result = Core.ResponseDataAsync('Список профилей', profiles);
+    } catch (e) {
+      result = Core.ResponseNotFound(
+        'Произошла ошибка. Обратитесь к администратору',
+        e.status || 400,
+        e.message,
+      );
+    }
+    return result;
+  }
+
+  async listArchive() {
+    let profiles = [];
+    let result;
+    try {
+      profiles = await this.profileModel.find({ status: 'inactive' });
+
+      if (profiles.length === 0) {
+        throw new NotFoundException('Не найдено не одной записи');
+      } else {
+        result = Core.ResponseDataAsync(
+          'Список профилей находящиеся в архиве',
+          profiles,
+        );
+      }
+    } catch (e) {
+      result = Core.ResponseNotFound(
+        'Произошла ошибка. Обратитесь к администратору',
+        e.status || 400,
+        e.message,
+      );
+    }
+    return result;
   }
 }

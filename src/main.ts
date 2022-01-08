@@ -3,7 +3,7 @@ import { ProfileModule } from './profile.module';
 import { TcpOptions, Transport } from '@nestjs/microservices';
 import { cyan } from 'cli-color';
 import { Logger } from '@nestjs/common';
-import { ConfigService } from './config/config.service';
+import { ConfigService } from './services';
 
 async function bootstrap() {
   const logger = new Logger('ProfileModule');

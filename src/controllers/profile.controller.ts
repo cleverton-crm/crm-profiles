@@ -1,5 +1,5 @@
 import { Controller, Get, Req } from '@nestjs/common';
-import { ProfileService } from './profile.service';
+import { ProfileService } from '../services/profile.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { Core } from 'crm-core';
 
@@ -32,5 +32,14 @@ export class ProfileController {
   @MessagePattern('profile:update')
   async updateMe(@Payload() data: { id: string }): Promise<any> {
     return await this.profileService.updateMeData(data);
+  }
+
+  @MessagePattern('profile:get:all')
+  async list(@Payload() data: any): Promise<any> {
+    return await this.profileService.list();
+  }
+  @MessagePattern('profile:get:archive')
+  async listArchive(@Payload() data: any): Promise<any> {
+    return await this.profileService.listArchive();
   }
 }

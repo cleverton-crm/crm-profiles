@@ -1,4 +1,4 @@
-import { Users, UserSchema } from './user.schema';
+import { Users, UserSchema } from '../schemas/user.schema';
 
 export const UserProvider = {
   name: 'User',
