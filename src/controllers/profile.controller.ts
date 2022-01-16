@@ -30,7 +30,7 @@ export class ProfileController {
   }
 
   @MessagePattern('profile:update')
-  async updateMe(@Payload() data: { id: string }): Promise<any> {
+  async updateMe(@Payload() data: Core.Profiles.Update): Promise<any> {
     return await this.profileService.updateMeData(data);
   }
 
