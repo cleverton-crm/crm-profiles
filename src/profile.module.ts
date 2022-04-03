@@ -4,7 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { ProfileProvider, UserProvider } from './providers';
+import { ProfileListProvider, ProfileProvider, UserProvider } from './providers';
 import { ProfileController } from './controllers';
 import {
   ConfigService,
@@ -26,7 +26,7 @@ import {
     MongooseModule.forRootAsync({
       useClass: MongoConfigService,
     }),
-    MongooseModule.forFeatureAsync([ProfileProvider, UserProvider]),
+    MongooseModule.forFeatureAsync([ProfileProvider, UserProvider, ProfileListProvider]),
   ],
   controllers: [ProfileController],
   providers: [ProfileService, ConfigService],

@@ -9,6 +9,9 @@ import { v4 as uuidv4 } from 'uuid';
 export class Users extends Document {
   @Prop({ type: String, default: uuidv4 })
   _id: string; // UUID v4
+
+  @Prop({ type: String, default: '' })
+  permissions: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(Users);

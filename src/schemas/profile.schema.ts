@@ -90,3 +90,8 @@ export class Profile extends Document implements Core.Profiles.Schema {
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);
+
+export type ProfileListDocument = ProfileList & Document;
+@Schema({ collection: 'profileList' })
+export class ProfileList extends Profile {}
+export const ProfileListSchema = SchemaFactory.createForClass(ProfileList);

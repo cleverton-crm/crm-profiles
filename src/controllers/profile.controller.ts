@@ -20,7 +20,7 @@ export class ProfileController {
   }
 
   @MessagePattern('profile:get:id')
-  async createPersona(@Payload() persona: { owner: string }): Promise<any> {
+  async createPersona(@Payload() persona: { id: string }): Promise<any> {
     return await this.profileService.getProfile(persona);
   }
 

@@ -7,10 +7,12 @@ import { Profile } from '../schemas';
 @Injectable()
 export class ProfileService {
   private readonly profileModel;
+  private readonly profileListModel;
   private readonly userModel;
 
   constructor(@InjectConnection() private readonly connection: Connection) {
     this.profileModel = this.connection.model('Profile');
+    this.profileListModel = this.connection.model('ProfileList');
     this.userModel = this.connection.model('User');
   }
 
@@ -48,10 +50,11 @@ export class ProfileService {
     return Core.ResponseDataAsync('My profile', profile);
   }
 
-  async getProfile(persona: { owner: string }) {
+  async getProfile(persona: { id: string }) {
     let profile = {};
     try {
-      profile = await this.profileModel.findOne({ owner: persona.owner });
+      profile = await this.profileModel.findOne({ _id: persona.id }).exec();
+
     } catch (e) {
       Core.ResponseError(
         'Произошла ошибка. Обратитесь к администратору',
@@ -100,11 +103,12 @@ export class ProfileService {
     let profiles = [];
     let result;
     try {
-      profiles = await this.profileModel.find({ status: 'active' });
+      profiles = await this.profileListModel.find({ status: 'active' });
 
       if (profiles.length === 0) {
         throw new NotFoundException('Не найдено не одной записи');
       }
+
       result = Core.ResponseDataAsync('Список профилей', profiles);
     } catch (e) {
       result = Core.ResponseNotFound(

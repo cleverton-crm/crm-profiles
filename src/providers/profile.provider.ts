@@ -1,4 +1,4 @@
-import { ProfileSchema } from '../schemas/profile.schema';
+import { ProfileListSchema, ProfileSchema } from '../schemas/profile.schema';
 
 export const ProfileProvider = {
   name: 'Profile',
@@ -7,5 +7,15 @@ export const ProfileProvider = {
     ProfileSchema.set('toObject', { virtuals: true });
 
     return ProfileSchema;
+  },
+};
+
+export const ProfileListProvider = {
+  name: 'ProfileList',
+  useFactory: () => {
+    ProfileListSchema.set('toJSON', { virtuals: true });
+    ProfileListSchema.set('toObject', { virtuals: true });
+
+    return ProfileListSchema;
   },
 };
